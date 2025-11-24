@@ -80,6 +80,7 @@ public class AccountController : Controller
    public async Task<IActionResult> Portfolio()
    {
       var user = await _userManager.GetUserAsync(User);
+      ViewBag.Title = "Portflio Overview";
 
       if (user != null)
       {
@@ -88,16 +89,15 @@ public class AccountController : Controller
          .Include(w => w.Wallets)
          .FirstOrDefaultAsync(p => p.UserId == user.Id);
 
-
-         if (porfolioresult == null)
+         if (porfolioresult != null)
          {
-            porfolioresult = await _portfolioservice.AddPortfolioAsync(user.Id, null);
+            porfolioresult = await _portfolioservice.GetPortfolioOverviewAsync(user.Id);
+            return View(porfolioresult);
+
          }
+         porfolioresult = await _portfolioservice.AddPortfolioAsync(user.Id, null);
 
-         return View(porfolioresult);
       }
-
-      ViewBag.Title = "Portflio Overview";
 
       return View();
 
@@ -115,21 +115,47 @@ public class AccountController : Controller
    {
       if (ModelState.IsValid)
       {
-         // var user = await _userManager.GetUserAsync(User);
-         // if (user != null)
-         // {
-
-         // await _walletservice.AddWalletAsync(user.Id,addWalletRequest.WalletAddress, addWalletRequest.WalletChain, addWalletRequest.WalletName);    
-         // }
+         var user = await _userManager.GetUserAsync(User);
+         if (user != null)
+         {
+         await _walletservice.AddWalletAsync(user.Id, addWalletRequest.WalletAddress, addWalletRequest.WalletName);    
+         }
       }
 
-      return RedirectToAction("Dashboard", "Account");
+      return RedirectToAction("Portfolio", "Account");
+   }
+
+   [Route("[action]")]
+   public async Task<IActionResult> Wallet()
+   {
+      var user = await _userManager.GetUserAsync(User);
+      if (user != null)
+      {
+         var wallets = await _walletservice.GetUserWalletsAsync(user.Id);
+
+         return View(wallets);
+      }
+
+      return BadRequest();
+            
+   }
+
+   [Route("[action]")]
+   public async Task<IActionResult> DeleteWallet(Guid walletId)
+   {
+      var user = await _userManager.GetUserAsync(User);
+
+      await _walletservice.RemoveWalletAsync(walletId);
+
+      return RedirectToAction("Wallet");
    }
 
   
   [Route("[action]")]
-   public IActionResult Settings()
+   public async Task<IActionResult> Settings()
    {
+      var user = await _userManager.GetUserAsync(User);
+      ViewBag.Email = user.UserName;
       return View();
    }
 
@@ -173,19 +199,19 @@ public class AccountController : Controller
    }
 
 
-   [Route("[action]")]
-    [HttpPost]
-   public async Task<IActionResult> TestEndpoint(string symbol, int interval , int count)
-   {
+   // [Route("[action]")]
+   //  [HttpPost]
+   // public async Task<IActionResult> TestEndpoint(string symbol, int interval , int count)
+   // {
 
-      //  var interval = HelperClass.InputIntervals(3);
+   //    //  var interval = HelperClass.InputIntervals(3);
 
-      await _market.GetMovingAverage(symbol, interval, count);
+   //    await _market.GetMovingAverage(symbol, interval, count);
      
-      // Coins[]? data = JsonConvert.DeserializeObject<Coins[]>(result);
+   //    // Coins[]? data = JsonConvert.DeserializeObject<Coins[]>(result);
 
-      return Ok();
-   }
+   //    return Ok();
+   // }
 
 
 }

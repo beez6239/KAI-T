@@ -5,7 +5,7 @@ namespace KaiCryptoTracker.Models;
 
 public class AddWalletRequest
 {
-    
+
     [Required(ErrorMessage = "Wallet name can't be emtpy")]
     public string? WalletName { get; set; } = string.Empty;
 

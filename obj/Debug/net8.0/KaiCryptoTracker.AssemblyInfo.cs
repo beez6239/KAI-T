@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("KaiCryptoTracker")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e20d98c736745ec42a83720d0f1942d9e92b09dd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2574bc9d30cbb8b24aa0dd982f7d9b35bbb3cb15")]
 [assembly: System.Reflection.AssemblyProductAttribute("KaiCryptoTracker")]
 [assembly: System.Reflection.AssemblyTitleAttribute("KaiCryptoTracker")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

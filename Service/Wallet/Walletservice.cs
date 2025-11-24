@@ -23,16 +23,40 @@ public class WalletService : IWalletService
         _apicalls = apicalls;
         _logger = logger;
     }
-    public async Task AddWalletAsync(Guid userId, string walletaddress, string chain, string Walletname)
+    public async Task AddWalletAsync(Guid userId, string walletaddress, string Walletname)
     {
         try
         {
+
+            var portfolio = _dbcontext.Portfolios
+            .Include(p => p.Wallets)
+            .Where(p => p.UserId == userId).FirstOrDefault();
+
+            if (portfolio == null)
+            {
+                bool walltetexist = portfolio.Wallets.Any(w => w.WalletAddress == walletaddress);
+                if (walltetexist)
+                {
+                    _logger.LogInformation("Wallet already exist ");
+                    return;
+                }
+                portfolio = new Portfolio()
+                {
+                    PortfolioName = "Default",
+                    UserId = userId
+                };
+                _dbcontext.Add(portfolio);
+                _dbcontext.SaveChanges();
+            }
             var wallet_to_add = new Wallet()
             {
                 WalletName = Walletname,
                 WalletAddress = walletaddress,
-                UserId = userId
+                UserId = userId, 
+                PortfolioId = portfolio.PortfolioId
+                
             };
+
             _dbcontext.Add(wallet_to_add);
             await _dbcontext.SaveChangesAsync();
 
