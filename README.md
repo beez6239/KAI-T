@@ -1,4 +1,4 @@
-# kaiTracker
+# KAI-T
 > A unified crypto portfolio tracker and trading dashboard  built for traders who are tired of switching between five different apps just to manage their positions.
 
 **Final Year Thesis Project  Graded A (Excellent) | Kyiv Aviation Institute, 2025**
@@ -14,8 +14,7 @@ As a crypto trader, managing your portfolio across multiple chains and exchanges
 
 Existing services : 
 
-
-**kaiTracker is being built to fix that.**
+<img width="823" height="422" alt="otherservice 2025-05-28 at 11 18 05 AM" src="https://github.com/user-attachments/assets/38a11b02-52c5-4168-9a8a-b27f7d911038" />
 
 ---
 
@@ -47,7 +46,7 @@ A single dashboard where traders can:
 - Multi-wallet connection (MetaMask, WalletConnect)
 - Exchange API integration (Binance, OKX)
 - Order placement and management
-- Portfolio analytics and real time charts
+- Portfolio analytics and real-time charts
 
 ---
 
@@ -66,6 +65,7 @@ A single dashboard where traders can:
 
 ## Architecture
 
+<img width="2000" height="954" alt="diagram-export-5-29-2025-11_17_25-AM" src="https://github.com/user-attachments/assets/0956b554-c53a-4999-ba15-706255de38d5" />
 
 ---
 
